@@ -1,0 +1,57 @@
+using System;
+					
+public class Program
+{
+	public static void Main()
+	{
+		
+	//What is your name?
+		string firstName;
+		string midInitial;
+		string lastName;
+		
+		System.Console.Write("What is your first name?" + " ");  
+			firstName = System.Console.ReadLine(); 
+		
+		System.Console.Write("What is your middle initial?" + " ");
+            midInitial = System.Console.ReadLine();
+		
+		System.Console.Write("What is your last name?" + " ");
+            lastName = System.Console.ReadLine();
+
+		
+	//What is your height?
+		const double multiplier = 2.54;
+		const int inchesPerFoot = 12;
+		
+		int heightFeet;
+		double heightInches;
+		
+		System.Console.Write("What is your height in feet?" + " ");
+            heightFeet = int.Parse(System.Console.ReadLine());
+		
+		System.Console.Write("How many more inches?" + " ");
+            heightInches = int.Parse(System.Console.ReadLine());
+		
+		double totalInches = (heightFeet * inchesPerFoot) + heightInches;
+		double heightCM = totalInches * multiplier; 
+		
+	//Can you vote?		
+		bool canVote;
+		bool isCitizen;
+		
+		System.Console.Write("What is your age?");  
+			int age = int.Parse(System.Console.ReadLine()); 
+		
+		System.Console.WriteLine("Are you a citizen?");  
+			 isCitizen = System.Console.ReadLine().ToUpper().StartsWith("Y");
+		
+		canVote = (age >= 18) && isCitizen;
+		
+	//End results
+		System.Console.WriteLine("Your name is" + " " + firstName + " " + midInitial + " " + lastName + ".");
+		System.Console.WriteLine("Your are" + " " + heightCM + "CM tall. Congratulations.");
+		System.Console.WriteLine("Your voting eligibility status is:" + " " + canVote);
+
+	}
+}
