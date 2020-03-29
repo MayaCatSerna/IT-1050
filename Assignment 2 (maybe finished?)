@@ -1,0 +1,70 @@
+class Person
+{
+public string FirstName;
+public string LastName;
+public int Age;
+public Person Spouse;
+	
+public static double SumOfAllAges;
+public static int Count;
+	
+public static double TheAverageAge()
+	{
+		return (double)Person.SumOfAllAges / (double)Person.Count;		
+	}
+	
+public string GetTheFullName()
+	{
+		return this.FirstName + " " + this.LastName;
+	}
+	
+public void GiveNameAndAge()
+	{
+		System.Console.WriteLine(this.GetTheFullName());
+		System.Console.WriteLine(this.Age);
+	}
+	
+public void AskForNameAndAge()
+	{
+		System.Console.Write("Please enter your first name: ");
+            this.FirstName = System.Console.ReadLine();
+		System.Console.Write("And last name: ");
+            this.LastName = System.Console.ReadLine();
+		System.Console.Write("Enter your age: ");
+            this.Age = int.Parse(System.Console.ReadLine());
+	
+		Person.Count++;
+        Person.SumOfAllAges += this.Age;
+	}
+	
+public void AskForSpouse()
+	{
+		System.Console.Write("Please enter your spouse's first name: ");
+            this.FirstName = System.Console.ReadLine();
+		System.Console.Write("And last name: ");
+            this.LastName = System.Console.ReadLine();
+		System.Console.Write("Enter their age: ");
+            this.Age = int.Parse(System.Console.ReadLine());	
+	    this.Spouse = new Person();
+              this.Spouse.Spouse = this;
+	}
+}
+
+			Person p1 = new Person();
+            p1.AskForNameAndAge();
+            p1.AskForSpouse();
+
+            Person p2 = new Person();
+            p2.AskForNameAndAge();
+            p2.AskForSpouse();
+
+			System.Console.WriteLine("Results:");
+
+ 			p1.GiveNameAndAge();
+            p1.Spouse.GiveNameAndAge();
+            p2.GiveNameAndAge();
+            p2.Spouse.GiveNameAndAge();
+
+            System.Console.WriteLine("Average Age: " + Person.TheAverageAge());
+
+
