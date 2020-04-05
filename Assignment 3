@@ -1,0 +1,70 @@
+//Instructor class			
+class Instructor {
+	
+	private string TeacherName;
+	private string CourseName;
+	
+	public Instructor (string teacherName, string courseName) {
+		this.CourseName = courseName;
+		this.TeacherName = teacherName;
+	}
+	
+	public void SetStudentGrade (Student student, int grade) {
+		student.SetGrade(grade);
+	}
+	
+	 public void Print() {
+		 System.Console.WriteLine(this.TeacherName + " teaches " + this.CourseName);
+	 }
+}
+
+//Student class
+class Student
+{
+	private string StudentName;
+	private Instructor Teacher;
+	private int Grade;
+	
+	public Student(string name, Instructor teacher); {
+		this.StudentName = name;
+		this.Grade = 0;
+		this.Teacher = teacher;
+	}
+	
+	public void SetGrade(int grade); {
+		this.Grade = grade;
+	}
+	
+	private string NamePlusGrade() {
+		return StudentName + ":" + Grade;
+	}
+	
+	public void Print() {
+		System.Console.WriteLine(this.NamePlusGrade() + "   Instructor:" + this.Teacher.Print());
+	}
+}
+
+//Program
+ static void Main(string[] args)
+    {
+	 //Note: Instructors and students have fun names :D
+	 Instructor Charlie = new Instructor("Charlie", "English");
+	 Instructor Maisy = new Instructor("Maisy", "Math");
+	 
+	 Student Annie = new Student("Annie", Charlie);
+	 Student Orchid = new Student("Orchid", Charlie);
+	 Student Marina = new Student("Marina", Maisy);
+	 Student Jamie = new Student("Jamie", Maisy);
+	 
+	 Charlie.SetStudentGrade(Annie, 95);
+	 Charlie.SetStudentGrade(Orchid, 85);
+	 Maisy.SetStudentGrade(Marina, 90);
+	 Maisy.SetStudentGrade(Jamie, 92);
+	 
+	 Annie.Print();
+	 Orchid.Print();
+	 Marina.Print();
+	 Jamie.Print();
+		
+	System.Console.ReadKey();
+ 	}
