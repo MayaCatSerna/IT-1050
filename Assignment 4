@@ -1,0 +1,182 @@
+using System;
+
+//Tickets
+public class Ticket
+{
+	public string Person;
+	public double MatineePrice;
+	public double EveningPrice;
+	public int AmountOfTix;
+	public static int TotalOfTix;
+	public static double TotalCost;
+	public static bool matinee;
+		
+	public Ticket(string PersonAge, double MatineeCost, double EveningCost)
+	{
+		this.Person = PersonAge;
+		this.MatineePrice = MatineeCost;
+		this.EveningPrice = EveningCost;
+	}
+	
+	public static void Header()
+	{
+		System.Console.WriteLine("------------------------------");
+		System.Console.WriteLine("Welcome to the movie theater!");
+		System.Console.WriteLine("------------------------------");
+	}
+	
+	public static void Intro()
+	{
+		System.Console.WriteLine("Please enter the number of tickets you would like to purchase:");
+	}
+	
+	public static void DiscountsAndPromotions()
+	{
+		System.Console.WriteLine("!!!  Discounts and Promotions  !!!");
+		System.Console.WriteLine("If you pruchase a popcorn and a large soda...you get a $2 discount on one ticket!");
+		System.Console.WriteLine("If you purchase three or more tickets to an evening show...you get a free popcorn!");
+		System.Console.WriteLine("Buy three candies and get the fourth one free!");
+	}
+	
+	public static void MatineeOrEvening()
+	{
+		System.Console.WriteLine("For showtime, type ");
+		System.Console.WriteLine("1 -- Matinee Showing");
+		System.Console.WriteLine("2 -- Evening Showing");
+		
+		int TimeSlot = int.Parse(System.Console.ReadLine());
+		
+		 if (1 == TimeSlot)
+            {
+                Console.WriteLine("You have selected Matinee");
+			 	matinee = true;
+            }
+            else if (2 == TimeSlot)
+            {
+                Console.WriteLine("You have selected Evening");
+            }
+            else
+            {
+                Console.WriteLine("You have entered something INVALID");
+                Console.WriteLine();
+                Ticket.MatineeOrEvening();
+            }
+	}
+	
+	public void NumberOfTickets()
+	{
+		 this.AmountOfTix = int.Parse(Console.ReadLine());
+            if (Ticket.matinee == true)
+            {
+                Ticket.TotalCost += (this.AmountOfTix * this.MatineePrice);
+            }
+            else
+            {
+                Ticket.TotalCost += (this.AmountOfTix * this.EveningPrice);
+            }
+            Ticket.TotalOfTix += this.AmountOfTix;
+	}	
+	
+	 public static void Totals()
+	 {
+		 System.Console.WriteLine("Ticket price total:" + "   " + Ticket.TotalCost);
+		 System.Console.WriteLine("Consession stand total:" + "   " + Concession.TotalCost);
+		 System.Console.WriteLine("Overall total:" + "   " + Ticket.TotalCost + Concession.TotalCost);
+	 }
+}
+
+//Concession
+ public class Concession
+ {
+	 public string Food;
+	 public double Price;
+	 public int AmountOfFood;
+	 public static double TotalCost;
+	 
+	 public Concession(string FoodName, double PriceNumber)
+	 {
+		 this.Food = FoodName;
+		 this.Price = PriceNumber;
+	 }
+	 
+	 public static void Header()
+	 {
+		 System.Console.WriteLine("Please enter the amount of things you would like to buy from concession:");
+	 }
+	 
+	 public void ConcessionDecision()
+	 {
+		 System.Console.WriteLine(this.Food + ": ");
+		 this.AmountOfFood = int.Parse(System.Console.ReadLine());
+		 TotalCost += (this.AmountOfFood * this.Price);
+	 }
+ }
+
+//MAIN PROGRAM
+public static void Main()
+{
+	 Ticket.DiscountsAndPromotions();
+     Ticket.MatineeOrEvening();
+	
+	 Ticket Child = new Ticket("Children under the age of 13: ", 3.99, 6.99);
+	 Ticket Adult = new Ticket("Adults 13-64 year old: ", 5.99, 10.99);
+     Ticket Senior = new Ticket("Adults 65 years and older: ", 4.50, 8.50);
+	
+	 Ticket.Header();
+	 Ticket.Intro();
+     Child.NumberOfTickets();
+     Adult.NumberOfTickets();
+	 Senior.NumberOfTickets();
+	
+	 Concession.Header();
+     Concession SmallSoda = new Concession("Small Sodas", 3.50);
+     Concession LargeSoda = new Concession("Large Sodas", 5.99);
+     Concession HotDog = new Concession("Hot Dogs", 3.99);
+     Concession Popcorn = new Concession("Popcorn", 4.50);
+     Concession Candy = new Concession("Candy", 1.99);
+     LargeSoda.ConcessionDecision();
+     SmallSoda.ConcessionDecision();
+     HotDog.ConcessionDecision();
+     Popcorn.ConcessionDecision();
+     Candy.ConcessionDecision();
+
+//Popcorn and Soda
+ 		 if (Popcorn.AmountOfFood >= 1 && LargeSoda.AmountOfFood >= 1)
+       	 {
+	 		Ticket.TotalCost -= 2 * LargeSoda.AmountOfFood;
+            System.Console.WriteLine("** You get a discount of $" +
+            2 * LargeSoda.AmountOfFood + " for purchasing");
+            System.Console.WriteLine(LargeSoda.AmountOfFood + " " + LargeSoda.Food + " and " + Popcorn.AmountOfFood + " bags of " + Popcorn.Food);
+                }
+                
+			else
+            {
+                Ticket.TotalCost -= 2 * Popcorn.AmountOfFood;
+                System.Console.WriteLine("** You earned a discount of $" +
+                2 * Popcorn.AmountOfFood + " for purchasing");
+                System.Console.WriteLine(LargeSoda.AmountOfFood + " " + LargeSoda.Food + " and " + Popcorn.AmountOfFood + " bags of " + Popcorn.Food);
+            }
+	
+//Showtime	
+            if (Ticket.matinee == false && Ticket.TotalCost >= 3)
+            {
+                Popcorn.AmountOfFood++;
+                Concession.TotalCost -= Popcorn.Price;
+                Console.WriteLine("You get a free" + Popcorn.Food + " for purchasing");
+                Console.WriteLine(Ticket.TotalCost + " evening showings and a " + Popcorn.Food);
+            }
+
+//Candy	
+            if (Candy.AmountOfFood >= 3)
+            {
+                int freeCandies = Candy.AmountOfFood / 3;
+                Candy.AmountOfFood += freeCandies;
+                Concession.TotalCost -= Candy.Price * (freeCandies);
+                Console.WriteLine("** You get " + freeCandies + " free " + Candy.Food + " for purchasing");
+                Console.WriteLine((Candy.AmountOfFood - freeCandies) + " boxes of " + Candy.Food);
+            }
+
+	Ticket.Totals();
+
+}
+    
